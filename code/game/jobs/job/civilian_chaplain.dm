@@ -2,11 +2,11 @@
 /datum/job/chaplain
 	title = "Chaplain"
 	department = "Civilian"
-	department_flag = CIV
+	department_flag = CIV|SRV
 
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the head of personnel"
+	supervisors = null
 
 	access = list(
 	ACCESS_MEDICAL_LVL1,
@@ -19,11 +19,12 @@
 	allowed_branches = list(/datum/mil_branch/civilian)
 	allowed_ranks = list(/datum/mil_rank/civ/classc)
 
+	roleplay_difficulty = "Medium"
+	mechanical_difficulty = "Easy"
+
 /datum/job/chaplain/equip(mob/living/carbon/human/H, alt_title, ask_questions = TRUE)
 	. = ..()
-	if(!.)
-		return
-	if(!ask_questions)
+	if(!. || !ask_questions)
 		return
 
 	var/obj/item/storage/bible/B = locate(/obj/item/storage/bible) in H
@@ -32,13 +33,13 @@
 
 	spawn(0)
 		var/religion_name = "Christianity"
-		var/new_religion = sanitize(input(H, "You are the crew services officer. Would you like to change your religion? Default is Christianity, in SPACE.", "Name change", religion_name), MAX_NAME_LEN)
+		var/new_religion = sanitize(input(H, "You are the crew services officer. Would you like to change your religion? Default is Christianity.", "Name change", religion_name), MAX_NAME_LEN)
 
 		if (!new_religion)
 			new_religion = religion_name
 		switch(lowertext(new_religion))
 			if("christianity")
-				B.SetName(pick("The Holy Bible","The Dead Sea Scrolls"))
+				B.SetName("The Holy Bible")
 			if("satanism")
 				B.SetName("The Unholy Bible")
 			if("cthulu")

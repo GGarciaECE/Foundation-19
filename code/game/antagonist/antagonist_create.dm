@@ -36,7 +36,7 @@
 	W.access |= default_access
 	W.assignment = "[assignment]"
 	player.set_id_info(W)
-	if(equip) player.equip_to_slot_or_del(W, slot_wear_id)
+	if(equip) player.equip_to_slot_or_store_or_drop(W, slot_wear_id)
 	return W
 
 /datum/antagonist/proc/create_radio(freq, mob/living/carbon/human/player)
@@ -51,7 +51,7 @@
 			R = new/obj/item/device/radio/headset(player)
 			R.set_frequency(freq)
 
-	player.equip_to_slot_or_del(R, slot_l_ear)
+	player.equip_to_slot_or_store_or_drop(R, slot_l_ear)
 	return R
 
 /datum/antagonist/proc/greet(datum/mind/player)
@@ -68,7 +68,7 @@
 	src.show_objectives_at_creation(player)
 	if (codex_key)
 		var/datum/codex_entry/entry = SScodex.get_codex_entry(codex_key)
-		if(entry && (entry.lore_text || entry.mechanics_text || entry.antag_text))
+		if(entry && entry.entry_text)
 			to_chat(player.current, SPAN_BOLD("The codex has <i><a href='?src=\ref[SScodex];show_examined_info=\ref[entry];show_to=\ref[player.current]'>more information</a></i> about this antagonist."))
 
 	return 1

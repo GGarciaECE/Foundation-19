@@ -15,8 +15,7 @@ Small, little HP, poisonous.
 	destroy_surroundings = 0
 	health = 15
 	maxHealth = 15
-	movement_cooldown = 2
-	move_to_delay = 0
+	movement_cooldown = 1
 	density = TRUE
 	min_gas = null
 	mob_size = MOB_MINISCULE
@@ -84,7 +83,7 @@ Small, little HP, poisonous.
 	var/mob/living/simple_animal/hostile/voxslug/V = contents[1]
 	if(!V.stat && istype(target, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
-		if(!do_after(user, 3 SECONDS, H))
+		if(!do_after(user, 4 SECONDS, H, bonus_percentage = 25))
 			return
 		V.attach(H)
 		qdel(src)

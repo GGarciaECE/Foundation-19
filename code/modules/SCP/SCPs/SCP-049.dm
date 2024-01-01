@@ -73,7 +73,6 @@ GLOBAL_LIST_EMPTY(scp049_1s)
 	for(var/decl/hierarchy/skill/S in GLOB.skills)
 		skillset.skill_list[S.type] = SKILL_UNTRAINED
 	skillset.skill_list[SKILL_COOKING] = SKILL_TRAINED
-	skillset.skill_list[SKILL_BOTANY] = SKILL_TRAINED
 	skillset.skill_list[SKILL_HAULING] = SKILL_MASTER
 	skillset.skill_list[SKILL_COMBAT] = SKILL_EXPERIENCED
 	skillset.skill_list[SKILL_ANATOMY] = SKILL_EXPERIENCED
@@ -96,6 +95,7 @@ GLOBAL_LIST_EMPTY(scp049_1s)
 		add_language(LANGUAGE_HUMAN_FRENCH)
 		add_language(LANGUAGE_HUMAN_GERMAN)
 		add_language(LANGUAGE_HUMAN_SPANISH)
+		priority_announcement.Announce("Motion sensors triggered in the containment chamber of SCP-049, on-site security personnel are to investigate the issue.", "Motion Sensors", 'sounds/AI/049.ogg')
 		if(!(MUTATION_XRAY in mutations))
 			mutations.Add(MUTATION_XRAY)
 			update_mutations()
@@ -125,7 +125,7 @@ GLOBAL_LIST_EMPTY(scp049_1s)
 
 
 /mob/living/carbon/human/scp049/proc/Attack_Voice_Line() //for when we're up to no good!
-	var/voiceline = list('sound/scp/voice/SCP049_1.ogg','sound/scp/voice/SCP049_2.ogg','sound/scp/voice/SCP049_3.ogg','sound/scp/voice/SCP049_4.ogg','sound/scp/voice/SCP049_5.ogg')
+	var/voiceline = list('sounds/scp/voice/SCP049_1.ogg','sounds/scp/voice/SCP049_2.ogg','sounds/scp/voice/SCP049_3.ogg','sounds/scp/voice/SCP049_4.ogg','sounds/scp/voice/SCP049_5.ogg')
 	playsound(src, pick(voiceline), 30)
 	show_sound_effect(src.loc, src)
 
@@ -136,7 +136,7 @@ GLOBAL_LIST_EMPTY(scp049_1s)
 	chasing_sound = FALSE
 	if(target.pestilence && !chasing_sound && !contained)
 		chasing_sound = TRUE
-		target.playsound_local(src, 'sound/scp/chase/049_chase.ogg', 50, 0)
+		target.playsound_local(src, 'sounds/scp/chase/049_chase.ogg', 50, 0)
 		addtimer(CALLBACK(src, .proc/SCP049_Chase_Music), 25 SECONDS)
 
 /mob/living/carbon/human/scp049/proc/check_nearby()
@@ -251,17 +251,17 @@ GLOBAL_LIST_EMPTY(scp049_1s)
 
 	src.visible_message("\The [src] begins to pry open \the [A]!")
 
-	if(!do_after(src,120,A))
+	if(!do_after(src, 15 SECONDS, A, bonus_percentage = 25))
 		return
 
 	if(!A.density)
 		return
 
 	A.do_animate("spark")
-	do_after(10)
-	A.stat |= BROKEN
-	var/check = A.open(1)
-	src.visible_message("\The [src] slices \the [A]'s controls[check ? ", ripping it open!" : ", breaking it!"]")
+	if(do_after(src, 1 SECOND, A, bonus_percentage = 100))
+		A.set_broken(TRUE)
+		var/check = A.open(1)
+		src.visible_message("\The [src] slices \the [A]'s controls[check ? ", ripping it open!" : ", breaking it!"]")
 
 // special channel that lets SCP-049 and SCP-049-1 communicate
 /mob/living/carbon/human/proc/SCP_049_talk()
@@ -277,7 +277,7 @@ GLOBAL_LIST_EMPTY(scp049_1s)
 	set category = "SCP-049"
 	set name = "Greetings"
 	if (world.time >= next_emote)
-		playsound(src, 'sound/scp/voice/SCP049_1.ogg', 30)
+		playsound(src, 'sounds/scp/voice/SCP049_1.ogg', 30)
 		show_sound_effect(src.loc, src)
 		next_emote = world.time + 10
 
@@ -285,7 +285,7 @@ GLOBAL_LIST_EMPTY(scp049_1s)
 	set category = "SCP-049"
 	set name = "Yet another victim"
 	if (world.time >= next_emote)
-		playsound(src, 'sound/scp/voice/SCP049_2.ogg', 30)
+		playsound(src, 'sounds/scp/voice/SCP049_2.ogg', 30)
 		show_sound_effect(src.loc, src)
 		next_emote = world.time + 40
 
@@ -293,7 +293,7 @@ GLOBAL_LIST_EMPTY(scp049_1s)
 	set category = "SCP-049"
 	set name = "You are not a doctor"
 	if (world.time >= next_emote)
-		playsound(src, 'sound/scp/voice/SCP049_3.ogg', 30)
+		playsound(src, 'sounds/scp/voice/SCP049_3.ogg', 30)
 		show_sound_effect(src.loc, src)
 		next_emote = world.time + 20
 
@@ -301,7 +301,7 @@ GLOBAL_LIST_EMPTY(scp049_1s)
 	set category = "SCP-049"
 	set name = "I sense the disease in you"
 	if (world.time >= next_emote)
-		playsound(src, 'sound/scp/voice/SCP049_4.ogg', 30)
+		playsound(src, 'sounds/scp/voice/SCP049_4.ogg', 30)
 		show_sound_effect(src.loc, src)
 		next_emote = world.time + 20
 
@@ -309,7 +309,7 @@ GLOBAL_LIST_EMPTY(scp049_1s)
 	set category = "SCP-049"
 	set name = "I'm here to cure you"
 	if (world.time >= next_emote)
-		playsound(src, 'sound/scp/voice/SCP049_5.ogg', 30)
+		playsound(src, 'sounds/scp/voice/SCP049_5.ogg', 30)
 		show_sound_effect(src.loc, src)
 		next_emote = world.time + 40
 
@@ -363,7 +363,7 @@ GLOBAL_LIST_EMPTY(scp049_1s)
 				to_chat(src, SPAN_NOTICE("You spend a great deal of time expertly curing this victim's disease."))
 				src.visible_message(SPAN_DANGER("[src] begins performing a horrifying procedure on [target]!"))
 
-		if(!do_after(src, 15 SECONDS, target))
+		if(!do_after(src, 20 SECONDS, target, bonus_percentage = 25))
 			to_chat(src, SPAN_WARNING("Our curing of [target] has been interrupted!"))
 			curing = FALSE
 			return

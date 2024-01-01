@@ -1,6 +1,5 @@
 /material/plastic
 	name = MATERIAL_PLASTIC
-	lore_text = "A generic polymeric material. Probably the most flexible and useful substance ever created by human science; mostly used to make disposable cutlery."
 	stack_type = /obj/item/stack/material/plastic
 	flags = MATERIAL_BRITTLE
 	icon_base = "solid"
@@ -17,7 +16,7 @@
 				/datum/reagent/toxin/plasticide = 20
 				)
 	sale_price = 1
-	dooropen_noise = 'sound/effects/doorcreaky.ogg'
+	dooropen_noise = 'sounds/effects/doorcreaky.ogg'
 
 /material/plastic/holographic
 	name = "holo" + MATERIAL_PLASTIC
@@ -29,7 +28,6 @@
 
 /material/cardboard
 	name = MATERIAL_CARDBOARD
-	lore_text = "What with the difficulties presented by growing plants in orbit, a stock of cardboard in space is probably more valuable than gold."
 	stack_type = /obj/item/stack/material/cardboard
 	flags = MATERIAL_BRITTLE
 	integrity = 10
@@ -248,7 +246,7 @@
 	conductive = 0
 	hidden_from_codex = TRUE
 	construction_difficulty = MATERIAL_NORMAL_DIY
-	hitsound = 'sound/weapons/smash.ogg'
+	hitsound = 'sounds/weapons/smash.ogg'
 	integrity = 75
 	hardness = MATERIAL_RIGID
 	weight = 18

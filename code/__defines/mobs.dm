@@ -19,6 +19,7 @@
 #define GRAB_NORMAL			"normal"
 #define GRAB_NAB			"nab"
 #define GRAB_NAB_SPECIAL	"special nab"
+#define GRAB_ABOMINATION	"terrifying grab"
 
 // Grab levels.
 #define NORM_PASSIVE    "normal passive"
@@ -30,6 +31,10 @@
 #define NAB_PASSIVE		"nab passive"
 #define NAB_AGGRESSIVE	"nab aggressive"
 #define NAB_KILL		"nab kill"
+
+#define GRAB_ABOMINATION_PASSIVE 	"terrifying grab passive"
+#define GRAB_ABOMINATION_AGGRESSIVE "terrifying grab aggressive"
+#define GRAB_ABOMINATION_KILL 		"terrifying grab kill"
 
 #define BORGMESON       (1<<0)
 #define BORGTHERM       (1<<1)
@@ -223,6 +228,7 @@
 #define BP_ANCHOR   "anchoring ligament"
 #define BP_PHORON   "phoron filter"
 #define BP_ACETONE  "acetone reactor"
+#define BP_LARVA    "larvae storage"
 
 // Vox bits.
 #define BP_HINDTONGUE "hindtongue"
@@ -347,12 +353,13 @@
 #define SPECIES_TRITONIAN   "Tritonian"
 #define SPECIES_GRAVWORLDER "Grav-Adapted Human"
 #define SPECIES_MULE        "Mule"
+#define SPECIES_ABOMINATION "Abomination"
 #define SPECIES_MONKEY      "Monkey"
 #define SPECIES_FBP         "Full Body Prosthesis"
 
 #define UNRESTRICTED_SPECIES list(SPECIES_HUMAN, SPECIES_DIONA, SPECIES_IPC, SPECIES_UNATHI, SPECIES_YEOSA, SPECIES_SKRELL, SPECIES_TRITONIAN, SPECIES_SPACER, SPECIES_VATGROWN, SPECIES_GRAVWORLDER, SPECIES_MULE)
-#define RESTRICTED_SPECIES   list(SPECIES_VOX, SPECIES_ALIEN, SPECIES_GOLEM, SPECIES_MANTID_GYNE, SPECIES_MANTID_ALATE, SPECIES_MONARCH_WORKER, SPECIES_MONARCH_QUEEN)
-#define HUMAN_SPECIES        list(SPECIES_HUMAN, SPECIES_VATGROWN, SPECIES_SPACER, SPECIES_GRAVWORLDER, SPECIES_MULE)
+#define RESTRICTED_SPECIES   list(SPECIES_VOX, SPECIES_ALIEN, SPECIES_GOLEM, SPECIES_MANTID_GYNE, SPECIES_MANTID_ALATE, SPECIES_MONARCH_WORKER, SPECIES_MONARCH_QUEEN, SPECIES_ABOMINATION)
+#define HUMAN_SPECIES        list(SPECIES_HUMAN, SPECIES_VATGROWN, SPECIES_SPACER, SPECIES_GRAVWORLDER, SPECIES_MULE, SPECIES_ABOMINATION)
 
 #define SPECIES_NABBER         "Giant armoured serpentid"
 #define SPECIES_MONARCH_WORKER "Monarch Serpentid Worker"
@@ -392,6 +399,7 @@
 
 #define ROBOT_MODULE_TYPE_GROUNDED "grounded"
 #define ROBOT_MODULE_TYPE_FLYING   "flying"
+#define ROBOT_MODULE_DISABLED	"disabled"
 
 #define RADIO_INTERRUPT_DEFAULT 30
 
@@ -426,30 +434,6 @@
 #define CAN_INJECT              1
 #define INJECTION_PORT          2
 #define INJECTION_PORT_DELAY    3 SECONDS // used by injectors to apply delay due to searching for a port on the injectee's suit
-
-
-//used by /proc/do_after
-#define DO_USER_CAN_MOVE     (1<<0)
-#define DO_USER_CAN_TURN     (1<<1)
-#define DO_USER_UNIQUE_ACT   (1<<2)
-#define DO_USER_SAME_HAND    (1<<3)
-#define DO_USER_SAME_ZONE    (1<<4)
-#define DO_TARGET_CAN_MOVE   (1<<5)
-#define DO_TARGET_CAN_TURN   (1<<6)
-#define DO_TARGET_UNIQUE_ACT (1<<7)
-#define DO_SHOW_PROGRESS     (1<<8)
-#define DO_PUBLIC_PROGRESS   (1<<9)
-#define DO_MOVE_CHECKS_TURFS (1<<10)
-#define DO_FAIL_FEEDBACK     (1<<11)
-
-#define DO_BOTH_CAN_MOVE     (DO_USER_CAN_MOVE | DO_TARGET_CAN_MOVE)
-#define DO_BOTH_CAN_TURN     (DO_USER_CAN_TURN | DO_TARGET_CAN_TURN)
-#define DO_BOTH_UNIQUE_ACT   (DO_USER_UNIQUE_ACT | DO_TARGET_UNIQUE_ACT)
-#define DO_DEFAULT           (DO_SHOW_PROGRESS | DO_USER_SAME_HAND | DO_BOTH_CAN_TURN | DO_FAIL_FEEDBACK)
-
-#define DO_MISSING_USER      (-1)
-#define DO_MISSING_TARGET    (-2)
-#define DO_INCAPACITATED     (-3)
 
 #define FAKE_INVIS_ALPHA_THRESHOLD 127 // If something's alpha var is at or below this number, certain things will pretend it is invisible.
 

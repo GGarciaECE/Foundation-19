@@ -3,7 +3,7 @@
 	desc = "A basic energy-based gun."
 	icon = 'icons/obj/guns/basic_energy.dmi'
 	icon_state = "energy"
-	fire_sound = 'sound/weapons/Taser.ogg'
+	fire_sound = 'sounds/weapons/Taser.ogg'
 	fire_sound_text = "laser blast"
 	accuracy = 1
 
@@ -20,8 +20,6 @@
 	var/use_external_power = 0 //if set, the weapon will look for an external power source to draw from, otherwise it recharges magically
 	var/recharge_time = 4
 	var/charge_tick = 0
-
-	general_codex_key = "energy weapons"		// for codex
 
 /obj/item/gun/energy/switch_firemodes()
 	. = ..()

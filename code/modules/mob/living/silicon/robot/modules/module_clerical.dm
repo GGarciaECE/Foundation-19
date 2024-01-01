@@ -41,7 +41,6 @@
 	skills = list(
 		SKILL_COMPUTER            = SKILL_EXPERIENCED,
 		SKILL_COOKING             = SKILL_MASTER,
-		SKILL_BOTANY              = SKILL_MASTER,
 		SKILL_MEDICAL             = SKILL_BASIC,
 		SKILL_CHEMISTRY           = SKILL_TRAINED
 	)
@@ -70,7 +69,7 @@
 
 /obj/item/robot_module/clerical/general
 	name = "clerical robot module"
-	display_name = "Clerical"
+	display_name = "Bureaucratic"
 	channels = list(
 		"Service" = TRUE,
 		"Supply" =  TRUE

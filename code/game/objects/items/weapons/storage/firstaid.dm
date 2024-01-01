@@ -15,7 +15,8 @@
 	throw_range = 8
 	max_w_class = ITEM_SIZE_SMALL
 	max_storage_space = DEFAULT_BOX_STORAGE
-	use_sound = 'sound/effects/storage/box.ogg'
+	use_sound = 'sounds/effects/storage/box.ogg'
+	open_icon = "firstaidopen"
 
 /obj/item/storage/firstaid/empty
 	icon_state = "firstaid"
@@ -37,6 +38,7 @@
 	desc = "It's an emergency medical kit for when people brought ballistic weapons to a laser fight."
 	icon_state = "radfirstaid"
 	item_state = "firstaid-ointment"
+	open_icon = "radopen"
 
 	startswith = list(
 		/obj/item/storage/med_pouch/trauma = 4
@@ -51,6 +53,7 @@
 	desc = "It's an emergency medical kit for when the toxins lab <i>-spontaneously-</i> burns down."
 	icon_state = "ointment"
 	item_state = "firstaid-ointment"
+	open_icon = "fireopen"
 
 	startswith = list(
 		/obj/item/storage/med_pouch/burn = 4
@@ -65,6 +68,7 @@
 	desc = "Used to treat when you have a high amount of toxins in your body."
 	icon_state = "antitoxin"
 	item_state = "firstaid-toxin"
+	open_icon = "toxinopen"
 
 	startswith = list(
 		/obj/item/storage/med_pouch/toxin = 4
@@ -79,6 +83,7 @@
 	desc = "A box full of oxygen goodies."
 	icon_state = "o2"
 	item_state = "firstaid-o2"
+	open_icon = "o2open"
 
 	startswith = list(
 		/obj/item/storage/med_pouch/oxyloss = 4
@@ -89,6 +94,7 @@
 	desc = "Contains advanced medical treatments."
 	icon_state = "doctor-kit"
 	item_state = "firstaid-advanced"
+	open_icon = "doctor-kitopen"
 
 	startswith = list(
 		/obj/item/storage/pill_bottle/assorted,
@@ -102,6 +108,7 @@
 	desc = "Contains advanced medical treatments."
 	icon_state = "bezerk"
 	item_state = "firstaid-advanced"
+	open_icon = "bezerkopen"
 
 	startswith = list(
 		/obj/item/storage/pill_bottle/bicaridine,
@@ -136,7 +143,8 @@
 	storage_slots = 14
 	max_w_class = ITEM_SIZE_NORMAL
 	max_storage_space = null
-	use_sound = 'sound/effects/storage/briefcase.ogg'
+	use_sound = 'sounds/effects/storage/briefcase.ogg'
+	open_icon = "surgerykitopen"
 
 	can_hold = list(
 		/obj/item/bonesetter,
@@ -180,7 +188,7 @@
 	can_hold = list(/obj/item/reagent_containers/pill,/obj/item/dice,/obj/item/paper)
 	allow_quick_gather = 1
 	use_to_pickup = 1
-	use_sound = 'sound/effects/storage/pillbottle.ogg'
+	use_sound = 'sounds/effects/storage/pillbottle.ogg'
 	matter = list(MATERIAL_PLASTIC = 250)
 	var/wrapper_color
 	var/label
@@ -194,7 +202,7 @@
 	var/zone = user.zone_sel.selecting
 	if(zone == BP_MOUTH && target.can_eat())
 		user.visible_message(SPAN_NOTICE("[user] pops a pill from \the [src]."))
-		playsound(get_turf(src), 'sound/effects/peelz.ogg', 50)
+		playsound(get_turf(src), 'sounds/effects/peelz.ogg', 50)
 		var/list/peelz = filter_list(contents,/obj/item/reagent_containers/pill)
 		if(peelz.len)
 			var/obj/item/reagent_containers/pill/P = pick(peelz)

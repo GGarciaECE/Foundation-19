@@ -2,6 +2,7 @@
 	name = "box"
 	desc = "A sleek, sturdy box."
 	icon_state = "box_of_doom"
+	open_icon = "box_of_doomopen"
 
 //For uplink kits that provide bulkier items
 /obj/item/storage/backpack/satchel/syndie_kit

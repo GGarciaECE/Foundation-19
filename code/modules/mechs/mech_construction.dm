@@ -1,6 +1,6 @@
 /mob/living/exosuit/proc/dismantle()
 
-	playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
+	playsound(src.loc, 'sounds/items/Deconstruct.ogg', 50, 1)
 	var/obj/structure/heavy_vehicle_frame/frame = new(get_turf(src))
 	for(var/hardpoint in hardpoints)
 		remove_system(hardpoint, force = 1)
@@ -81,18 +81,18 @@
 		return FALSE
 
 	if(user)
-		var/delay = 30 * user.skill_delay_mult(SKILL_DEVICES)
+		var/delay = 4 SECONDS * user.skill_delay_mult(SKILL_DEVICES)
 		if(delay > 0)
 			user.visible_message(
 				SPAN_NOTICE("\The [user] begins trying to install \the [system] into \the [src]."),
 				SPAN_NOTICE("You begin trying to install \the [system] into \the [src].")
 			)
-			if(!do_after(user, delay, src) || user.get_active_hand() != system)
+			if(!do_after(user, delay, src, bonus_percentage = 25) || user.get_active_hand() != system)
 				return FALSE
 
 		if(user.unEquip(system))
 			to_chat(user, SPAN_NOTICE("You install \the [system] in \the [src]'s [system_hardpoint]."))
-			playsound(user.loc, 'sound/items/Screwdriver.ogg', 100, 1)
+			playsound(user.loc, 'sounds/items/Screwdriver.ogg', 100, 1)
 		else
 			return FALSE
 
@@ -156,6 +156,6 @@
 		system.forceMove(get_turf(user))
 		user.put_in_hands(system)
 		to_chat(user, SPAN_NOTICE("You remove \the [system] from \the [src]'s [system_hardpoint]."))
-		playsound(user.loc, 'sound/items/Screwdriver.ogg', 100, 1)
+		playsound(user.loc, 'sounds/items/Screwdriver.ogg', 100, 1)
 
 	return 1

@@ -5,6 +5,7 @@
 	item_state = "sunglasses"
 	darkness_view = -1
 	flash_protection = FLASH_PROTECTION_MINOR
+	hidden_from_codex = FALSE
 
 /obj/item/clothing/glasses/sunglasses/prescription
 	name = "prescription sunglasses"
@@ -39,7 +40,7 @@
 	off_state = "sec_flash"
 	action_button_name = "Toggle Mode"
 	toggleable = TRUE
-	activation_sound = 'sound/effects/pop.ogg'
+	activation_sound = 'sounds/effects/pop.ogg'
 
 	var/on = TRUE
 	var/hud_holder

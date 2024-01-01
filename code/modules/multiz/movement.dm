@@ -212,7 +212,7 @@
 		return 1
 	else if(landing.get_fluid_depth() >= FLUID_DEEP)
 		visible_message(SPAN_NOTICE("\The [src] falls into the water!"), SPAN_NOTICE("What a splash!"))
-		playsound(src,  'sound/effects/watersplash.ogg', 30, TRUE)
+		playsound(src,  'sounds/effects/watersplash.ogg', 30, TRUE)
 		return 1
 	else
 		handle_fall_effect(landing)
@@ -281,7 +281,7 @@
 			return FALSE
 
 		visible_message(SPAN_NOTICE("[src] starts climbing onto \the [A]!"), SPAN_NOTICE("You start climbing onto \the [A]!"))
-		if(do_after(src, 50, A))
+		if(do_after(src, 7 SECONDS, A, bonus_percentage = 25))
 			visible_message(SPAN_NOTICE("[src] climbs onto \the [A]!"), SPAN_NOTICE("You climb onto \the [A]!"))
 			src.Move(T)
 		else

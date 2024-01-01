@@ -6,7 +6,7 @@
 	announced = FALSE
 	create_record = FALSE
 	total_positions = 4
-	outfit_type = /decl/hierarchy/outfit/job/classd
+	outfit_type = /decl/hierarchy/outfit/job/survivor
 	hud_icon = "hudblank"
 	available_by_default = FALSE
 	allowed_ranks = null
@@ -14,11 +14,9 @@
 	skill_points = 25
 	give_psionic_implant_on_join = FALSE
 	max_skill = list(
-	    SKILL_PILOT = SKILL_MAX,
 	    SKILL_HAULING = SKILL_MAX,
 	    SKILL_COMPUTER = SKILL_MAX,
 	    SKILL_FINANCE = SKILL_MAX,
-	    SKILL_BOTANY = SKILL_MAX,
 	    SKILL_COOKING = SKILL_MAX,
 	    SKILL_COMBAT = SKILL_MAX,
 	    SKILL_WEAPONS = SKILL_MAX,

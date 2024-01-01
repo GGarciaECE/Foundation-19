@@ -5,13 +5,13 @@
 
 /obj/structure/cult/talisman
 	name = "Altar"
-	desc = "A bloodstained altar dedicated to Nar-Sie."
+	desc = "A bloodstained altar dedicated to the Scarlet King."
 	icon_state = "talismanaltar"
 
 
 /obj/structure/cult/forge
 	name = "Daemon forge"
-	desc = "A forge used in crafting the unholy weapons used by the armies of Nar-Sie."
+	desc = "A forge used in crafting the unholy weapons used by the Children of the Scarlet King."
 	icon_state = "forge"
 
 /obj/structure/cult/pylon
@@ -25,7 +25,7 @@
 	light_color = "#3e0000"
 	health_max = 20
 	health_min_damage = 4
-	damage_hitsound = 'sound/effects/Glasshit.ogg'
+	damage_hitsound = 'sounds/effects/Glasshit.ogg'
 
 /obj/structure/cult/pylon/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/natural_weapon/cult_builder))
@@ -61,7 +61,7 @@
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "hole"
 	density = TRUE
-	unacidable = TRUE
+	acid_resistance = -1
 	anchored = TRUE
 	var/spawnable = null
 

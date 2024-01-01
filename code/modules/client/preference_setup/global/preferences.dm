@@ -201,6 +201,12 @@ var/list/_client_preferences_by_type
 	description = "Draw gun based on intent"
 	key = "HOLSTER_ON_INTENT"
 
+/datum/client_preference/facedir_after_shoot
+	description = "Auto-face direction after shooting"
+	key = "FACEDIR_AFTER_SHOOT"
+	options = list(GLOB.PREF_YES, GLOB.PREF_NO)
+	default_value = GLOB.PREF_NO
+
 /datum/client_preference/show_credits
 	description = "Show End Titles"
 	key = "SHOW_CREDITS"
@@ -228,16 +234,6 @@ var/list/_client_preferences_by_type
 /datum/client_preference/play_instruments
 	description = "Play instruments"
 	key = "SOUND_INSTRUMENTS"
-
-/datum/client_preference/give_personal_goals
-	description = "Give Personal Goals"
-	key = "PERSONAL_GOALS"
-	options = list(GLOB.PREF_NEVER, GLOB.PREF_NON_ANTAG, GLOB.PREF_ALWAYS)
-
-/datum/client_preference/show_department_goals
-	description = "Show Departmental Goals"
-	key = "DEPT_GOALS"
-	options = list(GLOB.PREF_SHOW, GLOB.PREF_HIDE)
 
 /datum/client_preference/examine_messages
 	description = "Examining messages"
@@ -280,7 +276,7 @@ var/list/_client_preferences_by_type
 	default_value = GLOB.PREF_NO
 
 /datum/client_preference/swap_tgui_inputs
-	description = "Swap Sumbmit/Cancle buttons"
+	description = "Swap Submit/Cancel buttons"
 	key = "SWAP_TGUI_INPUTS"
 	options = list(GLOB.PREF_YES, GLOB.PREF_NO)
 	default_value = GLOB.PREF_YES

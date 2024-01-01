@@ -24,7 +24,7 @@
 	spawn_flags = SPECIES_IS_RESTRICTED
 	genders = list(NEUTER)
 	force_cultural_info = list(
-		TAG_CULTURE = CULTURE_STARLIGHT
+		TAG_CULTURE = CULTURE_OTHER
 	)
 
 /datum/species/starlight/handle_death_check(mob/living/carbon/human/H)
@@ -112,4 +112,4 @@
 
 /datum/species/starlight/blueforged/handle_death(mob/living/carbon/human/H)
 	..()
-	new /obj/effect/temporary(get_turf(H),11, 'icons/mob/mob.dmi', "liquify")
+	new /obj/effect/temp_visual/temporary(get_turf(H),11, 'icons/mob/mob.dmi', "liquify")

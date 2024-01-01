@@ -31,7 +31,7 @@
 		other_half.cracked = 1
 		other_half.icon_state = "cracker2"
 		target.put_in_active_hand(other_half)
-		playsound(user, 'sound/effects/snap.ogg', 50, 1)
+		playsound(user, 'sounds/effects/snap.ogg', 50, 1)
 		return 1
 	return ..()
 
@@ -42,6 +42,7 @@
 	flags_inv = 0
 	body_parts_covered = 0
 	var/list/permitted_colors = list(COLOR_RED, COLOR_ORANGE, COLOR_YELLOW, COLOR_GREEN, COLOR_BLUE, COLOR_INDIGO, COLOR_VIOLET)
+	hidden_from_codex = FALSE
 
 /obj/item/clothing/head/festive/Initialize()
 	. = ..()

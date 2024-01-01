@@ -1,6 +1,7 @@
 /obj/item/robot_module/research
 	name = "research module"
 	display_name = "Research"
+	module_category = ROBOT_MODULE_TYPE_GROUNDED
 	channels = list(
 		"Science" = TRUE
 	)
@@ -40,7 +41,6 @@
 		SKILL_DEVICES             = SKILL_MASTER,
 		SKILL_ANATOMY             = SKILL_TRAINED,
 		SKILL_CHEMISTRY           = SKILL_TRAINED,
-		SKILL_BOTANY              = SKILL_EXPERIENCED,
 		SKILL_ELECTRICAL          = SKILL_EXPERIENCED
 	)
 /obj/item/robot_module/research/finalize_equipment()

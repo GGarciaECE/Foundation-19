@@ -47,13 +47,7 @@ var/global/list/image/ghost_sightless_images = list() //this is a list of images
 		if(body.mind && body.mind.name)
 			name = body.mind.name
 		else
-			if(body.real_name)
-				name = body.real_name
-			else
-				if(gender == MALE)
-					name = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
-				else
-					name = capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
+			name = body.real_name ? body.real_name : body.name
 
 		mind = body.mind	//we don't transfer the mind but we keep a reference to it.
 	if(!T)
@@ -482,7 +476,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return 0
 
 /mob/observer/ghost/can_admin_interact()
-	return check_rights(R_ADMIN, 0, src)
+	return check_rights(R_ADMIN|R_MOD, 0, src)
 
 /mob/observer/ghost/verb/toggle_ghostsee()
 	set name = "Toggle Ghost Vision"
@@ -574,17 +568,18 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Respawn"
 	set category = "OOC"
 
-	if (!(config.abandon_allowed))
-		to_chat(usr, SPAN_WARNING("Respawn is disabled."))
-		return
-	if (!SSticker.mode)
-		to_chat(usr, SPAN_WARNING("<b>You may not attempt to respawn yet.</b>"))
-		return
-	if (SSticker.mode.deny_respawn)
-		to_chat(usr, SPAN_WARNING("Respawn is disabled for this roundtype."))
-		return
-	else if(!MayRespawn(1, config.respawn_delay))
-		return
+	if(!check_rights(R_ADMIN, FALSE, client))
+		if(!(config.abandon_allowed))
+			to_chat(usr, SPAN_WARNING("Respawn is disabled."))
+			return
+		if(!SSticker.mode)
+			to_chat(usr, SPAN_WARNING("<b>You may not attempt to respawn yet.</b>"))
+			return
+		if(SSticker.mode.deny_respawn)
+			to_chat(usr, SPAN_WARNING("Respawn is disabled for this roundtype."))
+			return
+		else if(!MayRespawn(1, config.respawn_delay))
+			return
 
 	to_chat(usr, SPAN_NOTICE("You can respawn now, enjoy your new life!"))
 	to_chat(usr, SPAN_NOTICE("<b>Make sure to play a different character, and please roleplay correctly!</b>"))
@@ -623,12 +618,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			if(!M.client && (length(GLOB.clients) >= 20))
 				scps += M
 
-		if(IS_TRUSTED_PLAYER(ckey))
-			for(var/scp049 in GLOB.scp049s)
-				var/mob/M = scp049
-				if (!M.client)
-					scps += M
-
 		// Technically not difficult to recontain, but will easily kill anyone
 		for(var/scp106 in GLOB.scp106s)
 			var/mob/M = scp106
@@ -640,6 +629,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			if(!M.client && (length(GLOB.clients) >= 30))
 				scps += M
 
+		for(var/scp527 in GLOB.scp527s)
+			var/mob/M = scp527
+			if(!M.client)// && (length(GLOB.clients) >= 25))
+				scps += M
+
 		// add new humanoid SCPs here or they won't be playable - Kachnov
 		if(scps.len)
 			var/mob/living/scp = tgui_input_list(src, "Which Euclid/Keter SCP do you want to take control of?", "Unsafe SCP Select", scps)
@@ -648,6 +642,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				return
 			if(isscp049(scp) && world.time < 10 MINUTES) /*&& !("049" in GLOB.scp_whitelist[ckey] ? GLOB.scp_whitelist[ckey] : list())¸*/
 				to_chat(src, "You cannot join as this SCP for [((10 MINUTES) - world.time)/600] more minutes.")
+				return
+			if(isscp527(scp) && world.time < 15 MINUTES)
+				to_chat(src, "You cannot join as this SCP for [((15 MINUTES) - world.time)/600] more minutes.")
 				return
 
 			if(scp && !scp.client)

@@ -176,7 +176,7 @@
 			other_feed_message_start(user, target)
 
 			user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
-			if(!do_after(user, 3 SECONDS, target))
+			if(!do_after(user, 4 SECONDS, target, bonus_percentage = 25))
 				return
 
 			other_feed_message_finish(user, target)
@@ -212,7 +212,7 @@
 		return 1
 
 	var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
-	playsound(src, 'sound/effects/pour.ogg', 25, 1)
+	playsound(src, 'sounds/effects/pour.ogg', 25, 1)
 	show_sound_effect(src.loc, soundicon = SFX_ICON_SMALL)
 	to_chat(user, SPAN_NOTICE("You transfer [trans] unit\s of the solution to \the [target].  \The [src] now contains [src.reagents.total_volume] units."))
 	return 1

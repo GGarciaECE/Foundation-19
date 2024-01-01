@@ -1,6 +1,6 @@
 /obj/effect/overlay
 	name = "overlay"
-	unacidable = TRUE
+	acid_resistance = 1
 	var/i_attached//Added for possible image attachments to objects. For hallucinations and the like.
 
 /obj/effect/overlay/beam//Not actually a projectile, just an effect.
@@ -33,12 +33,6 @@
 	name = "Coconuts"
 	icon = 'icons/misc/beach.dmi'
 	icon_state = "coconuts"
-
-/obj/effect/overlay/bluespacify
-	name = "Bluespace"
-	icon = 'icons/turf/space.dmi'
-	icon_state = "bluespacify"
-	layer = SUPERMATTER_WALL_LAYER
 
 /obj/effect/overlay/wallrot
 	name = "wallrot"

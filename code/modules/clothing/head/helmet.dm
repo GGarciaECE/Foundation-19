@@ -25,6 +25,7 @@
 	siemens_coefficient = 0.7
 	w_class = ITEM_SIZE_NORMAL
 	species_restricted = list("exclude", SPECIES_NABBER, SPECIES_ADHERENT)
+	hidden_from_codex = FALSE
 
 /obj/item/clothing/head/helmet/nt
 	name = "\improper corporate security helmet"
@@ -35,9 +36,6 @@
 	name = "\improper PCRC helmet"
 	desc = "A helmet with 'PRIVATE SECURITY' printed on the back in cyan lettering."
 	icon_state = "helmet_pcrc"
-
-/obj/item/clothing/head/helmet/nt/guard
-	starting_accessories = list(/obj/item/clothing/accessory/armor/helmcover/nt)
 
 /obj/item/clothing/head/helmet/tactical
 	name = "tactical helmet"

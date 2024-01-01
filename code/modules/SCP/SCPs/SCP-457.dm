@@ -55,7 +55,7 @@
 			return
 		if(prob(35))
 			visible_message(SPAN_WARNING("[src] begins to claw at [A]!"))
-			if(do_after(src, 1 SECOND, H))
+			if(do_after(src, 1 SECOND, H, bonus_percentage = 100))
 				H.Weaken(10)
 				H.visible_message(SPAN_WARNING("[src] claws at [H], the flame sending them to the floor!"))
 				to_chat(H, SPAN_USERDANGER("IT HURTS!!!"))
@@ -63,7 +63,7 @@
 				aflame_cooldown = world.time + aflame_cooldown_time
 			else
 				visible_message(SPAN_WARNING("[src] raises their arms and begins to attack [A]!"))
-				if(do_after(src, 3 SECONDS, H))
+				if(do_after(src, 4 SECONDS, H, bonus_percentage = 25))
 					H.fire_stacks += 1
 					H.IgniteMob()
 					health += 15
@@ -76,7 +76,7 @@
 		OpenDoor(A)
 		return
 	if(istype(A, /obj/structure/grille))
-		playsound(get_turf(A), 'sound/effects/grillehit.ogg', 50, 1)
+		playsound(get_turf(A), 'sounds/effects/grillehit.ogg', 50, 1)
 		qdel(A)
 		return
 	if(istype(A, /obj/structure/inflatable))
@@ -98,26 +98,26 @@
 		to_chat(src, SPAN_WARNING("\The [A] is too far away."))
 		return
 
-	var/open_time = 4 SECONDS
+	var/open_time = 5 SECONDS
 	if(istype(A, /obj/machinery/door/blast))
 		if(get_area(A) == spawn_area)
 			to_chat(src, SPAN_WARNING("This blast door is too thermally protected, you cannot melt through it."))
 			return
-		open_time = 15 SECONDS
+		open_time = 16 SECONDS
 
 	if(istype(A, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/AR = A
 		if(AR.locked)
-			open_time += 3 SECONDS
+			open_time += 4 SECONDS
 		if(AR.welded)
-			open_time += 2 SECONDS
+			open_time += 4 SECONDS
 		if(AR.secured_wires)
 			open_time += 4 SECONDS
 
 	A.visible_message(SPAN_WARNING("\The [src] begins to melt the control mechanisms on \the [A]!"))
-	playsound(get_turf(A), 'sound/machines/airlock_creaking.ogg', 35, 1)
+	playsound(get_turf(A), 'sounds/machines/airlock_creaking.ogg', 35, 1)
 	door_cooldown = world.time + open_time // To avoid sound spam
-	if(!do_after(src, open_time, A))
+	if(!do_after(src, open_time, A, bonus_percentage = 25))
 		return
 
 	if(istype(A, /obj/machinery/door/blast))
@@ -130,7 +130,7 @@
 		var/obj/machinery/door/airlock/AR = A
 		AR.unlock(TRUE) // No more bolting in the SCPs and calling it a day
 		AR.welded = FALSE
-	A.stat |= BROKEN
+	A.set_broken(TRUE)
 	var/check = A.open(1)
 	visible_message("\The [src] melts \the [A]'s controls[check ? ", and rips it open!" : ", and breaks it!"]")
 

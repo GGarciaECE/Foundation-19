@@ -71,20 +71,6 @@ GLOBAL_LIST_EMPTY(admin_departments)
 	else
 		..()
 
-/obj/machinery/photocopier/faxmachine/get_mechanics_info()
-	. = "The fax machine can be used to transmit paper faxes to other fax machines on the map, or to off-ship organizations handled by server administration. \
-	To use the fax machine, you'll need to insert both a paper and your ID card, authenticate, select a destination, the transmit the fax. \
-	You can also fax paper bundles, including photos, using this machine.<br>\
-	You can check the machine's department origin tag using a <l>multitool</l>."
-	. += ..()
-
-/obj/machinery/photocopier/faxmachine/get_antag_info()
-	. = "If emagged with a <l>cryptographic sequencer</l>, the fax machine can then have its origin department tag changed using a multitool. \
-	This allows you to send faxes pretending to be from somewhere else on the ship, or even an off-ship origin like EXCOMM.<br>\
-	<strong>NOTE</strong>: Any new department tags created in this way that do not already exist in the list of targets cannot receive faxes, \
-	as this does not add new departments to the list of valid fax targets."
-	. += ..()
-
 /obj/machinery/photocopier/faxmachine/emag_act(remaining_charges, mob/user, emag_source)
 	if(emagged)
 		to_chat(user, SPAN_WARNING("\The [src]'s systems have already been hacked."))
@@ -206,7 +192,7 @@ GLOBAL_LIST_EMPTY(admin_departments)
 
 /obj/machinery/photocopier/faxmachine/proc/recievefax(obj/item/incoming, origin_department = "Unknown")
 	flick("faxreceive", src)
-	playsound(loc, "sound/machines/dotprinter.ogg", 50, 1)
+	playsound(loc, "sounds/machines/dotprinter.ogg", 50, 1)
 	visible_message(SPAN_NOTICE("\The [src] pings, \"New fax received from [origin_department].\""))
 
 	// give the sprite some time to flick
@@ -263,7 +249,7 @@ GLOBAL_LIST_EMPTY(admin_departments)
 	for(var/client/C in GLOB.admins)
 		if(check_rights((R_ADMIN|R_MOD),0,C))
 			to_chat(C, msg)
-			sound_to(C, 'sound/machines/dotprinter.ogg')
+			sound_to(C, 'sounds/machines/dotprinter.ogg')
 
 /// Retrieves a list of all fax machines matching the given department tag.
 /proc/get_fax_machines_by_department(department)

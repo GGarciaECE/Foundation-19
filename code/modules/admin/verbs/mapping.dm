@@ -144,7 +144,6 @@ var/list/debug_verbs = list (
 		,/client/proc/hide_debug_verbs
 		,/client/proc/testZAScolors
 		,/client/proc/testZAScolors_remove
-		,/datum/admins/proc/setup_supermatter
 		,/client/proc/atmos_toggle_debug
 		,/client/proc/spawn_tanktransferbomb
 		,/client/proc/find_leaky_pipes
@@ -338,6 +337,6 @@ var/list/debug_verbs = list (
 	var/list/baddies = list("LEAKY PIPES")
 	for(var/obj/machinery/atmospherics/pipe/P in SSmachines.machinery)
 		if(P.leaking)
-			baddies += "[P] ([P.x],[P.y],[P.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[P.x];Y=[P.y];Z=[P.z]'>JMP</a>)"
+			baddies += "[P] [ADMIN_COORDJMP(P)]"
 
 	to_chat(usr,jointext(baddies, "<br>"))

@@ -93,7 +93,7 @@ SUBSYSTEM_DEF(explosions)
  * - shaped: if true make explosions look like circle
  * - sfx_to_play: sound to play, when expolosion near player
  */
-/datum/controller/subsystem/explosions/proc/explode(turf/epicenter, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 0, flash_range = 0, adminlog = 1, z_transfer = UP|DOWN, shaped, sfx_to_play = "explosion")
+/datum/controller/subsystem/explosions/proc/explode(turf/epicenter, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 0, flash_range = 0, adminlog = 1, z_transfer = UP|DOWN, shaped, sfx_to_play = SFX_EXPLOSION)
 	epicenter = get_turf(epicenter)
 	ASSERT(isturf(epicenter))
 	if(isnull(flash_range))
@@ -121,7 +121,7 @@ SUBSYSTEM_DEF(explosions)
 	var/max_range = max(devastation_range, heavy_impact_range, light_impact_range)
 	var/started_at = REALTIMEOFDAY
 	if(adminlog)
-		message_staff("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range]) in <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[epicenter.x];Y=[epicenter.y];Z=[epicenter.z]'>(x:[epicenter.x], y:[epicenter.y], z:[epicenter.z])</a>")
+		message_staff("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range]) in [ADMIN_COORDJMP(epicenter)]")
 		log_game("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range]) in (x:[epicenter.x], y:[epicenter.y], z:[epicenter.z])")
 
 	var/x0 = epicenter.x
@@ -306,7 +306,7 @@ SUBSYSTEM_DEF(explosions)
  * - [creaking_sound][/sound]: The sound that plays when the station creaks during the explosion.
  * - [hull_creaking_sound][/sound]: The sound that plays when the station creaks after the explosion.
  */
-/datum/controller/subsystem/explosions/proc/shake_the_room(turf/epicenter, near_distance, far_distance, quake_factor, echo_factor, creaking, near_sound = "explosion", far_sound = "far_explosion")
+/datum/controller/subsystem/explosions/proc/shake_the_room(turf/epicenter, near_distance, far_distance, quake_factor, echo_factor, creaking, near_sound = SFX_EXPLOSION, far_sound = "far_explosion")
 	var/frequency = get_rand_frequency()
 	var/blast_z = epicenter.z
 	if(isnull(creaking)) // Autoset creaking.

@@ -5,7 +5,7 @@
 	icon_state = "projector0"
 	max_w_class = ITEM_SIZE_SMALL
 	max_storage_space = BASE_STORAGE_CAPACITY(ITEM_SIZE_SMALL)
-	use_sound = 'sound/effects/storage/toolbox.ogg'
+	use_sound = 'sounds/effects/storage/toolbox.ogg'
 	var/static/list/projection_types = list(
 		/obj/item/photo = /obj/effect/projection/photo,
 		/obj/item/paper = /obj/effect/projection/paper,
@@ -21,10 +21,6 @@
 
 /obj/item/storage/slide_projector/on_update_icon()
 	icon_state = "projector[!!projection]"
-
-/obj/item/storage/slide_projector/get_mechanics_info()
-	. = ..()
-	. += "Use in hand to open the interface."
 
 /obj/item/storage/slide_projector/remove_from_storage(obj/item/W, atom/new_location, NoUpdate = 0)
 	. = ..()
@@ -62,7 +58,7 @@
 
 /obj/item/storage/slide_projector/proc/set_slide(obj/item/new_slide)
 	current_slide = new_slide
-	playsound(loc, 'sound/machines/slide_change.ogg', 50)
+	playsound(loc, 'sounds/machines/slide_change.ogg', 50)
 	if(projection)
 		project_at(get_turf(projection))
 

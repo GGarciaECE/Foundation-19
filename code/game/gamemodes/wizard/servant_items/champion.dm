@@ -11,6 +11,7 @@
 		bio = ARMOR_BIO_MINOR
 		)
 	species_restricted = list(SPECIES_HUMAN)
+	hidden_from_codex = FALSE
 
 /obj/item/clothing/suit/champarmor
 	name = "champion's armor"
@@ -69,7 +70,7 @@
 	throw_range = 2
 	throwforce = 10
 	slot_flags = SLOT_BELT
-	hitsound = 'sound/weapons/bladeslice.ogg'
+	hitsound = 'sounds/weapons/bladeslice.ogg'
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "cleaved", "sundered")
 
 /obj/item/excalibur/pickup(mob/living/user as mob)

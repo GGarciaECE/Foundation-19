@@ -240,7 +240,7 @@
 	var/turf/nloc = locate(rand(TRANSITIONEDGE, world.maxx-TRANSITIONEDGE), rand(TRANSITIONEDGE, world.maxy-TRANSITIONEDGE),newz)
 	if(!istype(nloc, /turf/space))
 		explosion(nloc, 1, 2, 3)
-	playsound(loc,'sound/effects/rocket.ogg',100)
+	playsound(loc,'sounds/effects/rocket.ogg',100)
 	forceMove(nloc)
 
 //Don't use these for in-round leaving
@@ -380,6 +380,8 @@
 			else
 				W.forceMove(src.loc)
 
+	SEND_SIGNAL(occupant, COMSIG_HUMAN_DESPAWNED)
+
 	//Update any existing objectives involving this mob.
 	for(var/datum/objective/O in all_objectives)
 		// We don't want revs to get objectives that aren't for heads of staff. Letting
@@ -458,7 +460,7 @@
 		to_chat(user, SPAN_WARNING("\The [target] isn't close enough."))
 		return
 	add_fingerprint(user)
-	if (!do_after(user, 2 SECONDS, src, do_flags = DO_DEFAULT | DO_TARGET_UNIQUE_ACT | DO_PUBLIC_PROGRESS))
+	if (!do_after(user, 2.5 SECONDS, src, do_flags = DO_DEFAULT | DO_TARGET_UNIQUE_ACT, bonus_percentage = 25))
 		return
 	if (QDELETED(target))
 		return
@@ -539,7 +541,7 @@
 
 	visible_message("\The [usr] starts climbing into \the [src].", range = 3)
 
-	if(do_after(usr, 20, src))
+	if(do_after(usr, 2.5 SECONDS, src, bonus_percentage = 25))
 
 		if(!usr || !usr.client)
 			return
@@ -620,7 +622,7 @@
 		if (isCrowbar(W))
 			busy = 1
 			visible_message("[user] starts to pry the glass cover off of \the [src].")
-			if (!do_after(user, 50, src))
+			if (!do_after(user, 7 SECONDS, src, bonus_percentage = 25))
 				visible_message("[user] stops trying to pry the glass off of \the [src].")
 				busy = 0
 				return

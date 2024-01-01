@@ -10,14 +10,15 @@
 	minimal_player_age = 14
 	account_allowed = 0
 	economic_power = 0
+	requirements = list("Robot" = 1200)
 	outfit_type = /decl/hierarchy/outfit/job/silicon/ai
 	loadout_allowed = FALSE
 	hud_icon = "hudblank"
 	skill_points = 0
 	no_skill_buffs = TRUE
+	allowed_branches = list(/datum/mil_branch/civilian)
+	allowed_ranks = list(/datum/mil_rank/civ/classa)
 	min_skill = list(
-		SKILL_PILOT         = SKILL_EXPERIENCED,
-		SKILL_BOTANY        = SKILL_EXPERIENCED,
 		SKILL_COOKING       = SKILL_EXPERIENCED,
 		SKILL_COMBAT        = SKILL_EXPERIENCED,
 		SKILL_WEAPONS       = SKILL_EXPERIENCED,
@@ -60,6 +61,8 @@
 	hud_icon = "hudblank"
 	skill_points = 0
 	no_skill_buffs = TRUE
+	allowed_branches = list(/datum/mil_branch/civilian)
+	allowed_ranks = list(/datum/mil_rank/civ/classa)
 
 /datum/job/cyborg/handle_variant_join(mob/living/carbon/human/H, alt_title)
 	return H && H.Robotize(SSrobots.get_mob_type_by_title(alt_title || title))

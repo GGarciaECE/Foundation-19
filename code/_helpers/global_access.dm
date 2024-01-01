@@ -89,12 +89,6 @@
 			return global.SSgarbage;
 		if("SSghost_images")
 			return global.SSghost_images;
-		if("SSgoals")
-			return global.SSgoals;
-		if("SSgraphs_process")
-			return global.SSgraphs_process;
-		if("SSgraphs_update")
-			return global.SSgraphs_update;
 		if("SSicon_update")
 			return global.SSicon_update;
 		if("SSinactivity")
@@ -103,6 +97,8 @@
 			return global.SSinput;
 		if("SSjobs")
 			return global.SSjobs;
+		if("SSjobtime")
+			return global.SSjobtime
 		if("SSkv")
 			return global.SSkv;
 		if("SSlighting")
@@ -331,10 +327,6 @@
 			return global.camera_repository;
 		if("cameranet")
 			return global.cameranet;
-		if("can_call_ert")
-			return global.can_call_ert;
-		if("captain_announcement")
-			return global.captain_announcement;
 		if("changelog_hash")
 			return global.changelog_hash;
 		if("channel_color_presets")
@@ -411,8 +403,6 @@
 			return global.endgame_exits;
 		if("endgame_safespawns")
 			return global.endgame_safespawns;
-		if("ert_base_chance")
-			return global.ert_base_chance;
 		if("escape_pods")
 			return global.escape_pods;
 		if("escape_pods_by_name")
@@ -589,8 +579,8 @@
 			return global.narsie_behaviour;
 		if("narsie_cometh")
 			return global.narsie_cometh;
-		if("narsie_list")
-			return global.narsie_list;
+		if("scarletking_list")
+			return global.scarletking_list;
 		if("navbeacons")
 			return global.navbeacons;
 		if("news_network")
@@ -601,14 +591,8 @@
 			return global.next_account_number;
 		if("ninjastart")
 			return global.ninjastart;
-		if("ntnet_card_uid")
-			return global.ntnet_card_uid;
 		if("ntnet_global")
 			return global.ntnet_global;
-		if("ntnrc_uid")
-			return global.ntnrc_uid;
-		if("nttransfer_uid")
-			return global.nttransfer_uid;
 		if("nuke_disks")
 			return global.nuke_disks;
 		if("num_financial_terminals")
@@ -954,12 +938,6 @@
 			global.SSgarbage=newval;
 		if("SSghost_images")
 			global.SSghost_images=newval;
-		if("SSgoals")
-			global.SSgoals=newval;
-		if("SSgraphs_process")
-			global.SSgraphs_process=newval;
-		if("SSgraphs_update")
-			global.SSgraphs_update=newval;
 		if("SSicon_update")
 			global.SSicon_update=newval;
 		if("SSinactivity")
@@ -968,6 +946,8 @@
 			global.SSinput=newval;
 		if("SSjobs")
 			global.SSjobs=newval;
+		if("SSjobtime")
+			global.SSjobtime=newval;
 		if("SSkv")
 			global.SSkv=newval;
 		if("SSlighting")
@@ -1196,10 +1176,6 @@
 			global.camera_repository=newval;
 		if("cameranet")
 			global.cameranet=newval;
-		if("can_call_ert")
-			global.can_call_ert=newval;
-		if("captain_announcement")
-			global.captain_announcement=newval;
 		if("changelog_hash")
 			global.changelog_hash=newval;
 		if("channel_color_presets")
@@ -1276,8 +1252,6 @@
 			global.endgame_exits=newval;
 		if("endgame_safespawns")
 			global.endgame_safespawns=newval;
-		if("ert_base_chance")
-			global.ert_base_chance=newval;
 		if("escape_pods")
 			global.escape_pods=newval;
 		if("escape_pods_by_name")
@@ -1454,8 +1428,8 @@
 			global.narsie_behaviour=newval;
 		if("narsie_cometh")
 			global.narsie_cometh=newval;
-		if("narsie_list")
-			global.narsie_list=newval;
+		if("scarletking_list")
+			global.scarletking_list=newval;
 		if("navbeacons")
 			global.navbeacons=newval;
 		if("news_network")
@@ -1466,14 +1440,8 @@
 			global.next_account_number=newval;
 		if("ninjastart")
 			global.ninjastart=newval;
-		if("ntnet_card_uid")
-			global.ntnet_card_uid=newval;
 		if("ntnet_global")
 			global.ntnet_global=newval;
-		if("ntnrc_uid")
-			global.ntnrc_uid=newval;
-		if("nttransfer_uid")
-			global.nttransfer_uid=newval;
 		if("nuke_disks")
 			global.nuke_disks=newval;
 		if("num_financial_terminals")
@@ -1774,13 +1742,11 @@
 	"SSfluids",
 	"SSgarbage",
 	"SSghost_images",
-	"SSgoals",
-	"SSgraphs_process",
-	"SSgraphs_update",
 	"SSicon_update",
 	"SSinactivity",
 	"SSinput",
 	"SSjobs",
+	"SSjobtime",
 	"SSkv",
 	"SSlighting",
 	"SSmachines",
@@ -1895,8 +1861,6 @@
 	"camera_range_display_status",
 	"camera_repository",
 	"cameranet",
-	"can_call_ert",
-	"captain_announcement",
 	"changelog_hash",
 	"channel_color_presets",
 	"channel_to_radio_key",
@@ -1935,7 +1899,6 @@
 	"empty_playable_ai_cores",
 	"endgame_exits",
 	"endgame_safespawns",
-	"ert_base_chance",
 	"escape_pods",
 	"escape_pods_by_name",
 	"evacuation_controller",
@@ -2033,16 +1996,13 @@
 	"multi_point_spawns",
 	"narsie_behaviour",
 	"narsie_cometh",
-	"narsie_list",
+	"scarletking_list",
 	"navbeacons",
 	"news_network",
 	"newscaster_standard_feeds",
 	"next_account_number",
 	"ninjastart",
-	"ntnet_card_uid",
 	"ntnet_global",
-	"ntnrc_uid",
-	"nttransfer_uid",
 	"nuke_disks",
 	"num_financial_terminals",
 	"organ_cache",

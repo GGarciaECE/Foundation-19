@@ -1,4 +1,5 @@
 /obj/item/clothing/accessory/storage
+	abstract_type = /obj/item/clothing/accessory/storage
 	name = "base storage accessory"
 	icon_state = "webbing"
 	slot = ACCESSORY_SLOT_UTILITY
@@ -9,11 +10,10 @@
 	var/obj/item/storage/internal/container
 	var/max_w_class = ITEM_SIZE_SMALL
 	var/slots
+	hidden_from_codex = TRUE
 
 /obj/item/clothing/accessory/storage/Initialize()
 	. = ..()
-	INIT_SKIP_QDELETED
-	INIT_DISALLOW_TYPE(/obj/item/clothing/accessory/storage)
 	if (!slots)
 		. = INITIALIZE_HINT_QDEL
 		crash_with("[type] created with no slots")
@@ -64,6 +64,7 @@
 	icon_state = "webbing"
 	slots = 3 STORAGE_SLOTS
 	body_location = UPPER_TORSO
+	hidden_from_codex = FALSE
 
 /obj/item/clothing/accessory/storage/webbing_large
 	name = "large webbing"
@@ -71,6 +72,7 @@
 	icon_state = "webbing_large"
 	slots = 4 STORAGE_FREEFORM
 	body_location = UPPER_TORSO
+	hidden_from_codex = FALSE
 
 /obj/item/clothing/accessory/storage/black_vest
 	name = "black webbing vest"
@@ -78,6 +80,7 @@
 	icon_state = "vest_black"
 	slots = 5 STORAGE_FREEFORM
 	body_location = UPPER_TORSO
+	hidden_from_codex = FALSE
 
 /obj/item/clothing/accessory/storage/brown_vest
 	name = "brown webbing vest"
@@ -85,6 +88,7 @@
 	icon_state = "vest_brown"
 	slots = 5 STORAGE_FREEFORM
 	body_location = UPPER_TORSO
+	hidden_from_codex = FALSE
 
 /obj/item/clothing/accessory/storage/white_vest
 	name = "white webbing vest"
@@ -92,6 +96,7 @@
 	icon_state = "vest_white"
 	slots = 5 STORAGE_FREEFORM
 	body_location = UPPER_TORSO
+	hidden_from_codex = FALSE
 
 /obj/item/clothing/accessory/storage/black_drop
 	name = "black drop bag"
@@ -99,6 +104,7 @@
 	icon_state = "thigh_black"
 	slots = 5 STORAGE_FREEFORM
 	body_location = LEGS
+	hidden_from_codex = FALSE
 
 /obj/item/clothing/accessory/storage/brown_drop
 	name = "brown drop bag"
@@ -106,6 +112,7 @@
 	icon_state = "thigh_brown"
 	slots = 5 STORAGE_FREEFORM
 	body_location = LEGS
+	hidden_from_codex = FALSE
 
 /obj/item/clothing/accessory/storage/white_drop
 	name = "white drop bag"
@@ -113,6 +120,7 @@
 	icon_state = "thigh_white"
 	slots = 5 STORAGE_FREEFORM
 	body_location = LEGS
+	hidden_from_codex = FALSE
 
 /obj/item/clothing/accessory/storage/knifeharness
 	name = "decorated harness"
@@ -120,10 +128,10 @@
 	icon_state = "unathiharness2"
 	slots = 2 STORAGE_SLOTS
 	max_w_class = ITEM_SIZE_NORMAL
+	hidden_from_codex = FALSE
 
 /obj/item/clothing/accessory/storage/knifeharness/Initialize()
 	. = ..()
-	INIT_SKIP_QDELETED
 	if (container)
 		container.can_hold = list(
 			/obj/item/material/hatchet,
@@ -138,10 +146,10 @@
 	icon_state = "bandolier"
 	slots = 10 STORAGE_SLOTS
 	max_w_class = ITEM_SIZE_NORMAL
+	hidden_from_codex = FALSE
 
 /obj/item/clothing/accessory/storage/bandolier/Initialize()
 	. = ..()
-	INIT_SKIP_QDELETED
 	if (container)
 		container.can_hold = list(
 			/obj/item/ammo_casing,
@@ -171,7 +179,6 @@
 
 /obj/item/clothing/accessory/storage/bandolier/safari/Initialize()
 	. = ..()
-	INIT_SKIP_QDELETED
 	if (container)
 		for(var/i = 1 to abs(slots))
 			new /obj/item/net_shell (container)

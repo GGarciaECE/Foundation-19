@@ -24,14 +24,10 @@
 	<br/><br/> \
 	Most humans will never meet a Vox raider, instead learning of this insular species through \
 	dealing with their traders and merchants; those that do rarely enjoy the experience."
-	codex_description = "The Vox are a hostile, deeply untrustworthy species from the edges of human space. They prey \
-	on isolated stations, ships or settlements without any apparent logic or reason, and tend to refuse communications \
-	or negotiations except when their backs are to the wall or they are in dire need of resources. They are four to five \
-	feet tall, reptillian, beaked, tailed and quilled."
 	hidden_from_codex = FALSE
 
 	taste_sensitivity = TASTE_DULL
-	speech_sounds = list('sound/voice/shriek1.ogg')
+	speech_sounds = list('sounds/voice/shriek1.ogg')
 	speech_chance = 20
 
 	warning_low_pressure = 50
@@ -87,22 +83,16 @@
 
 	available_cultural_info = list(
 		TAG_CULTURE =   list(
-			CULTURE_VOX_ARKSHIP,
-			CULTURE_VOX_SALVAGER,
-			CULTURE_VOX_RAIDER
+			CULTURE_OTHER
 		),
 		TAG_HOMEWORLD = list(
-			HOME_SYSTEM_VOX_ARK,
-			HOME_SYSTEM_VOX_SHROUD,
-			HOME_SYSTEM_VOX_SHIP
+			HOME_SYSTEM_OTHER
 		),
 		TAG_FACTION = list(
-			FACTION_VOX_RAIDER,
-			FACTION_VOX_CREW,
-			FACTION_VOX_APEX
+			FACTION_OTHER
 		),
 		TAG_RELIGION =  list(
-			RELIGION_VOX
+			RELIGION_OTHER
 		)
 	)
 
@@ -122,16 +112,16 @@
 	)
 
 /datum/species/vox/equip_survival_gear(mob/living/carbon/human/H)
-	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/vox(H), slot_wear_mask)
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H),slot_shoes)
+	H.equip_to_slot_or_store_or_drop(new /obj/item/clothing/mask/gas/vox(H), slot_wear_mask)
+	H.equip_to_slot_or_store_or_drop(new /obj/item/clothing/shoes/sandal(H),slot_shoes)
 
 	if(istype(H.get_equipped_item(slot_back), /obj/item/storage/backpack)) // This is mostly for station Vox
-		H.equip_to_slot_or_del(new /obj/item/tank/emergency/nitrogen/double(H), slot_belt)
-		H.equip_to_slot_or_del(new /obj/item/storage/box/vox(H.back), slot_in_backpack)
+		H.equip_to_slot_or_store_or_drop(new /obj/item/tank/emergency/nitrogen/double(H), slot_belt)
+		H.equip_to_slot_or_store_or_drop(new /obj/item/storage/box/vox(H.back), slot_in_backpack)
 		H.set_internals(H.belt)
 	else
-		H.equip_to_slot_or_del(new /obj/item/tank/nitrogen(H), slot_back)
-		H.equip_to_slot_or_del(new /obj/item/storage/box/vox(H), slot_r_hand)
+		H.equip_to_slot_or_store_or_drop(new /obj/item/tank/nitrogen(H), slot_back)
+		H.equip_to_slot_or_store_or_drop(new /obj/item/storage/box/vox(H), slot_r_hand)
 		H.set_internals(H.back)
 
 /datum/species/vox/disfigure_msg(mob/living/carbon/human/H)
@@ -151,7 +141,7 @@
 	damage_mask =     'icons/mob/human_races/species/vox/damage_mask_armalis.dmi'
 	blood_mask =      'icons/mob/human_races/species/vox/blood_mask_armalis.dmi'
 
-	speech_sounds = list('sound/voice/ashriek.ogg')
+	speech_sounds = list('sounds/voice/ashriek.ogg')
 	speech_chance = 10
 
 	slowdown = 1
@@ -206,7 +196,7 @@
 	OnCreated(vox, user)
 	data = sanitizeSafe(input(vox, "Enter Name:", "Enter Name", "") as text, MAX_NAME_LEN)
 	if (!length(data))
-		var/decl/cultural_info/culture = SSculture.get_culture(CULTURE_VOX_RAIDER)
+		var/decl/cultural_info/culture = SSculture.get_culture(CULTURE_OTHER)
 		data = culture.get_random_name()
 	vox.real_name = data
 	vox.SetName(data)
@@ -214,9 +204,9 @@
 	qdel(user)
 
 /obj/item/vox_changer/proc/OnCreated(mob/living/carbon/human/vox, mob/living/carbon/human/old)
-	vox.equip_to_slot_or_del(new /obj/item/clothing/under/vox/vox_casual(vox), slot_w_uniform)
-	vox.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/vox(vox), slot_wear_mask)
-	vox.equip_to_slot_or_del(new /obj/item/tank/nitrogen(vox), slot_back)
+	vox.equip_to_slot_or_store_or_drop(new /obj/item/clothing/under/vox/vox_casual(vox), slot_w_uniform)
+	vox.equip_to_slot_or_store_or_drop(new /obj/item/clothing/mask/gas/vox(vox), slot_wear_mask)
+	vox.equip_to_slot_or_store_or_drop(new /obj/item/tank/nitrogen(vox), slot_back)
 	vox.set_internals(locate(/obj/item/tank) in vox.contents)
 
 /obj/item/vox_changer/proc/OnReady(mob/living/carbon/human/vox, mob/living/carbon/human/old)

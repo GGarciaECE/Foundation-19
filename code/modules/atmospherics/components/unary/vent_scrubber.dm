@@ -217,13 +217,9 @@
 			return 1
 
 		to_chat(user, SPAN_NOTICE("Now welding \the [src]."))
-		playsound(src, 'sound/items/Welder.ogg', 50, 1)
+		playsound(src, 'sounds/items/Welder.ogg', 50, 1)
 
-		if(!do_after(user, 20, src))
-			to_chat(user, SPAN_NOTICE("You must remain close to finish this task."))
-			return 1
-
-		if(!src)
+		if(!do_after(user, 2.5 SECONDS, src, bonus_percentage = 25) || !src)
 			return 1
 
 		if(!WT.isOn())
@@ -232,7 +228,7 @@
 
 		welded = !welded
 		update_icon()
-		playsound(src, 'sound/items/Welder2.ogg', 50, 1)
+		playsound(src, 'sounds/items/Welder2.ogg', 50, 1)
 		user.visible_message(SPAN_NOTICE("\The [user] [welded ? "welds \the [src] shut" : "unwelds \the [src]"]."), \
 			SPAN_NOTICE("You [welded ? "weld \the [src] shut" : "unweld \the [src]"]."), \
 			"You hear welding.")

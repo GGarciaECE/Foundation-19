@@ -355,12 +355,6 @@
 	build_path = /obj/item/stock_parts/circuitboard/solar_control
 	sort_string = "JAAAF"
 
-/datum/design/circuit/supermatter_control
-	name = "core monitoring console"
-	id = "supermatter_control"
-	build_path = /obj/item/stock_parts/circuitboard/air_management/supermatter_core
-	sort_string = "JAAAG"
-
 /datum/design/circuit/injector
 	name = "injector control console"
 	id = "injector"
@@ -853,3 +847,10 @@
 	req_tech = list(TECH_ENGINEERING = 1)
 	build_path = /obj/item/stock_parts/circuitboard/shipmap
 	sort_string = "SAAAT"
+
+/datum/design/circuit/contraband_detector
+	name = "contraband detector"
+	id = "contrabanddetector"
+	req_tech = list(TECH_ENGINEERING = 2, TECH_MATERIAL)
+	build_path = /obj/item/stock_parts/circuitboard/contraband_detector
+	sort_string = "QAAAA"

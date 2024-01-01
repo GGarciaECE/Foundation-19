@@ -55,7 +55,6 @@
 		if(I_HELP)
 			if (health > 0)
 				M.visible_message(SPAN_NOTICE("[M] [response_help] \the [src]."))
-				M.update_personal_goal(/datum/goal/achievement/specific_object/pet, type)
 
 		if(I_DISARM)
 			M.visible_message(SPAN_NOTICE("[M] [response_disarm] \the [src]."))
@@ -84,15 +83,15 @@
 /mob/living/simple_animal/attackby(obj/item/O, mob/user)
 	if(istype(O, /obj/item/stack/medical))
 		if(stat != DEAD)
-			var/obj/item/stack/medical/MED = O
-			if(!MED.animal_heal)
-				to_chat(user, SPAN_NOTICE("That [MED] won't help \the [src] at all!"))
+			var/obj/item/stack/medical/med = O
+			if(!med.animal_heal)
+				to_chat(user, SPAN_NOTICE("That [med] won't help \the [src] at all!"))
 				return
 			if(health < maxHealth)
-				if(MED.can_use(1))
-					adjustBruteLoss(-MED.animal_heal)
-					visible_message(SPAN_NOTICE("[user] applies the [MED] on [src]."))
-					MED.use(1)
+				if(med.can_use(1))
+					adjustBruteLoss(-med.animal_heal)
+					visible_message(SPAN_NOTICE("[user] applies the [med] on [src]."))
+					med.use(1)
 		else
 			to_chat(user, SPAN_NOTICE("\The [src] is dead, medical items won't bring \him back to life."))
 		return
@@ -110,13 +109,14 @@
 				return
 			var/time_to_butcher = (mob_size)
 			to_chat(user, SPAN_NOTICE("You begin harvesting \the [src]."))
-			if(do_after(user, time_to_butcher, src, do_flags = DO_DEFAULT & ~DO_BOTH_CAN_TURN))
+			if(do_after(user, time_to_butcher, src, do_flags = DO_DEFAULT & ~DO_BOTH_CAN_TURN, bonus_percentage = 25))
 				if(prob(user.skill_fail_chance(SKILL_COOKING, 60, SKILL_TRAINED)))
 					to_chat(user, SPAN_NOTICE("You botch harvesting \the [src], and ruin some of the meat in the process."))
 					subtract_meat(user)
 					return
 				else
 					harvest(user, user.get_skill_value(SKILL_COOKING))
+					SEND_SIGNAL(user, COMSIG_BUTCHERED, src, O)
 					return
 			else
 				to_chat(user, SPAN_NOTICE("Your hand slips with your movement, and some of the meat is ruined."))

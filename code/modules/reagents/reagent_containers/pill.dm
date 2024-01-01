@@ -37,7 +37,7 @@
 
 		user.visible_message(SPAN_WARNING("[user] attempts to force [M] to swallow \the [src]."))
 		user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
-		if(!do_after(user, 3 SECONDS, M))
+		if(!do_after(user, 4 SECONDS, M, bonus_percentage = 25))
 			return
 
 		if (user.get_active_hand() != src)
@@ -361,7 +361,7 @@
 
 /obj/item/reagent_containers/pill/detergent
 	name = "detergent pod"
-	desc = "Put in water to get space cleaner. Do not eat. Really."
+	desc = "Put in water to get Hydroxylsan. Do not eat. Really."
 	icon_state = "pod21"
 	var/smell_clean_time = 10 MINUTES
 

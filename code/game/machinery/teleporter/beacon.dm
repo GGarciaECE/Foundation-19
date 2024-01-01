@@ -55,9 +55,9 @@
 				SPAN_NOTICE("\The [user] starts to [anchored ? "disconnect" : "connect"] \the [src] [anchored ? "from" : "to"] \the [T]."),
 				SPAN_NOTICE("You start to [anchored ? "disconnect" : "connect"] \the [src] [anchored ? "from" : "to"] \the [T].")
 			)
-			playsound(loc, 'sound/items/Ratchet.ogg', 75, TRUE)
+			playsound(loc, 'sounds/items/Ratchet.ogg', 75, TRUE)
 
-			if (!do_after(user, 3 SECONDS, src, DO_DEFAULT | DO_BOTH_UNIQUE_ACT | DO_PUBLIC_PROGRESS))
+			if (!do_after(user, 4 SECONDS, src, DO_DEFAULT | DO_TARGET_UNIQUE_ACT, bonus_percentage = 25))
 				return TRUE
 
 			anchored = !anchored
@@ -67,7 +67,7 @@
 				SPAN_NOTICE("\The [user] [anchored ? "connects" : "disconnects"] \the [src] [anchored ? "to" : "from"] \the [T] with \the [I]."),
 				SPAN_NOTICE("You [anchored ? "connect" : "disconnect"] \the [src] [anchored ? "to" : "from"] \the [T] with \the [I].")
 			)
-			playsound(loc, 'sound/items/Deconstruct.ogg', 75, TRUE)
+			playsound(loc, 'sounds/items/Deconstruct.ogg', 75, TRUE)
 			update_icon()
 			update_use_power(anchored ? POWER_USE_IDLE : POWER_USE_OFF)
 			if (!anchored)
@@ -168,23 +168,6 @@
 	else
 		icon_state += "_unpowered"
 
-
-/obj/machinery/tele_beacon/get_mechanics_info()
-	. = ..()
-	. += "<p>\The [src] can be targeted by teleporter control consoles to allow teleporter pads to send mobs and objects to this [src]'s location. \
-		It can only be targeted and used while \the [src] is powered and anchored (wrenched) to the floor.</p>\
-		<p>While the panel is closed:</p>\
-		<ul>\
-			<li>Use a Wrench to anchor/unanchor the beacon, allowing it to be moved. The beacon is not functional unless anchored.</li>\
-			<li>Use a Multitool to rename the beacon. The name will be displayed in teleport control consoles.</li>\
-		</ul>"
-
-
-/obj/machinery/tele_beacon/get_antag_info()
-	. = ..()
-	. += "<p>If EMP'd, \the [src] will lose all established teleporter locks and will be disabled for up to 30 seconds.</p>"
-
-
 /// Connects the beacon to a computer that's locking onto it. Returns TRUE on connection, FALSE if the connection fails.
 /obj/machinery/tele_beacon/proc/connect_computer(obj/machinery/computer/teleporter/computer)
 	if(wires.is_cut(WIRE_TELEBEACON_RELAY))
@@ -202,7 +185,7 @@
 	if(wires.is_cut(WIRE_TELEBEACON_SIGNALLER))
 		return
 	audible_message(SPAN_NOTICE("\The [src] beeps as a new teleporter links to it."))
-	playsound(loc, 'sound/machines/twobeep.ogg', 75, TRUE)
+	playsound(loc, 'sounds/machines/twobeep.ogg', 75, TRUE)
 
 
 /// Disconnects a single hub from the beacon.

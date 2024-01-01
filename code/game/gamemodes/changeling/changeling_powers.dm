@@ -38,7 +38,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 	var/mob/living/carbon/current = user
 	var/datum/changeling/changeling = mind.changeling
 
-	if(current.isMonkey() && !allow_during_lesser_form)
+	if(ismonkey(current) && !allow_during_lesser_form)
 		to_chat(user, SPAN_WARNING("Our current form is too primitive to do this."))
 		return
 	if(current.stat > max_stat)
@@ -85,7 +85,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 	button_icon_state = "absorb_dna"
 	genome_cost = 0
 	has_button = TRUE
-	var/stage_time = 15 SECONDS
+	var/stage_time = 18 SECONDS
 
 /datum/power/changeling/absorb_dna/can_activate(mob/living/carbon/human/user)
 	. = ..(user)
@@ -150,7 +150,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 			chomp(target)
 			return
 	SSstatistics.add_field_details("changeling_powers", "A[stage]")
-	if(!do_after(mind.current, stage_time, target) || !can_activate(mind.current))
+	if(!do_after(mind.current, stage_time, target, bonus_percentage = 25) || !can_activate(mind.current))
 		to_chat(mind.current, SPAN_WARNING("Our absorption of \the [target] has been interrupted!"))
 		mind.changeling.is_absorbing = FALSE
 		return FALSE
@@ -255,21 +255,21 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 
 	var/S_name = chosen_dna.speciesName
 	var/datum/species/S_dat = all_species[S_name]
-	var/changeTime = 2 SECONDS
+	var/changeTime = 3 SECONDS
 
 	if(user.mob_size != S_dat.mob_size)
 		user.visible_message(
 			SPAN_WARNING("\The [user]'s body begins to twist, their mass changing rapidly!"),
 			SPAN_WARNING("We begin to transform, changing our body's size to accommodate our new form.")
 		)
-		changeTime = 8 SECONDS
+		changeTime = 10 SECONDS
 	else
 		user.visible_message(
 			SPAN_WARNING("\The [user]'s body begins to twist, changing rapidly!"),
 			SPAN_WARNING("We begin to transform.")
 		)
 
-	if(!do_after(user, changeTime) || !chosen_dna)
+	if(!do_after(user, changeTime, bonus_percentage = 25) || !chosen_dna)
 		to_chat(user, SPAN_WARNING("We fail to change shape."))
 		return
 
@@ -341,7 +341,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 		if(!the_collective)
 			the_collective = user // Backup for if we're still alive
 		to_chat(the_collective, SPAN_NOTICE(FONT_LARGE("We are ready to rise! Re-use Regenerative Stasis when you are ready to return to life.")))
-		sound_to(the_collective, sound('sound/effects/wind/spooky1.ogg'))
+		sound_to(the_collective, sound('sounds/effects/wind/spooky1.ogg'))
 		state = CHANGELING_STASIS_READY
 
 
@@ -677,7 +677,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 	var/mob/living/carbon/human/H = user
 	if(!istype(H))
 		return FALSE
-	if(H.isMonkey()) // Give a warning if they try to use it while existing as a monkey, just so they know
+	if(ismonkey(H)) // Give a warning if they try to use it while existing as a monkey, just so they know
 		to_chat(user, SPAN_WARNING("Use your Transform ability to exit this form."))
 		return FALSE
 	. = ..(user)
@@ -845,7 +845,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 	H.adjustToxLoss(-10)
 	H.adjustOxyLoss(-10)
 	H.adjustFireLoss(-10)
-	H.playsound_local(H, 'sound/effects/singlebeat.ogg', 50, FALSE, is_global = TRUE) // Audio feedback to highlight each regen tick
+	H.playsound_local(H, 'sounds/effects/singlebeat.ogg', 50, FALSE, is_global = TRUE) // Audio feedback to highlight each regen tick
 	if(active_ticks)
 		addtimer(CALLBACK(src, .proc/do_regen, H), 1 SECONDS) // Repeat every second until we're fully regenerated
 	else

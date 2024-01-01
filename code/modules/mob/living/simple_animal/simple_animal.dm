@@ -53,14 +53,17 @@
 	var/projectilesound				// The sound I make when I do it
 	var/projectile_accuracy = 0		// Accuracy modifier to add onto the bullet when its fired.
 	var/projectile_dispersion = 0	// How many degrees to vary when I do it.
+	/// Type of a casing to spawn alongside with projectile.
 	var/casingtype
+	/// If not 0, casing will self-delete after set amount of time in this variable
+	var/casing_disappears = 0
 
 	// Reloading settings, part of ranged code
 	var/needs_reload = FALSE							// If TRUE, mob needs to reload occasionally
 	var/reload_max = 1									// How many shots the mob gets before it has to reload, will not be used if needs_reload is FALSE
 	var/reload_count = 0								// A counter to keep track of how many shots the mob has fired so far. Reloads when it hits reload_max.
 	var/reload_time = 4 SECONDS							// How long it takes for a mob to reload. This is to buy a player a bit of time to run or fight.
-	var/reload_sound = 'sound/weapons/flipblade.ogg'	// What sound gets played when the mob successfully reloads. Defaults to the same sound as reloading guns. Can be null.
+	var/reload_sound = 'sounds/weapons/flipblade.ogg'	// What sound gets played when the mob successfully reloads. Defaults to the same sound as reloading guns. Can be null.
 
 	//Hostility settings
 	var/taser_kill = 1				// Is the mob weak to tasers
@@ -73,6 +76,8 @@
 	var/melee_attack_delay = 2			// If set, the mob will do a windup animation and can miss if the target moves out of the way.
 	var/ranged_attack_delay = null
 	var/special_attack_delay = null
+
+	var/ranged_attack_cooldown = DEFAULT_ATTACK_COOLDOWN
 
 	//Mob interaction
 	var/list/friends = list()		// Mobs on this list wont get attacked regardless of faction status.
@@ -161,6 +166,13 @@
 	var/return_damage_min
 	var/return_damage_max
 
+	// For ranged bursts
+	var/ranged_burst_count = 0
+	var/ranged_burst_delay = 5
+
+	// List of potential death sounds, if any
+	var/list/death_sounds = list()
+
 /mob/living/simple_animal/Initialize()
 	. = ..()
 	if(LAZYLEN(natural_armor))
@@ -176,15 +188,23 @@
 	.=..()
 	if(show_stat_health)
 		. += "Health: [round((health / maxHealth) * 100)]%"
+	if(needs_reload)
+		. += "Ammo: [max(0, reload_max - reload_count)]/[reload_max]"
 
 /mob/living/simple_animal/death(gibbed, deathmessage = "dies!", show_dead_message)
-	. = ..(gibbed,deathmessage,show_dead_message)
+	. = ..()
+	if(!.)
+		return
 	drop_loot()
+	if(QDELETED(src)) // Gibbed/dusted/otherwise gone
+		return
 	icon_state = icon_dead
 	update_icon()
 	density = FALSE
 	adjustBruteLoss(maxHealth) //Make sure dey dead.
 	walk_to(src,0)
+	if(LAZYLEN(death_sounds))
+		playsound(src, pick(death_sounds), 50, TRUE)
 
 /mob/living/simple_animal/proc/drop_loot()
 	if(!LAZYLEN(loot_list))
@@ -264,17 +284,35 @@
 				B.update_icon()
 
 /mob/living/simple_animal/handle_fire()
-	return
+	. = ..()
+
+	var/burn_temperature = fire_burn_temperature()
+	var/thermal_protection = get_heat_protection(burn_temperature)
+
+	if (thermal_protection < 1 && bodytemperature < burn_temperature)
+		bodytemperature += round(BODYTEMP_HEATING_MAX*(1-thermal_protection), 1)
+
+	burn_temperature -= maxbodytemp
+
+	if(burn_temperature < 1)
+		return
+
+	// At minimum level of fire stacks and default(350) max body temp it will deal ~5 damage per tick
+	// At "absolute maximum" of around 100.000 burn_temperature it will deal ~80 damage per tick
+	var/burn_damage = round(sqrt(burn_temperature) * 0.25)
+	adjustBruteLoss(burn_damage)
 
 /mob/living/simple_animal/update_fire()
-	return
-/mob/living/simple_animal/IgniteMob()
-	return
-/mob/living/simple_animal/ExtinguishMob()
-	return
+	. = ..()
+	overlays -= image("icon"='icons/mob/OnFire.dmi', "icon_state"="Generic_mob_burning")
+	if(on_fire)
+		overlays += image("icon"='icons/mob/OnFire.dmi', "icon_state"="Generic_mob_burning")
 
 /mob/living/simple_animal/is_burnable()
 	return heat_damage_per_tick
+
+/mob/living/simple_animal/HandleLyingDensity()
+	return // Density does not change from resting
 
 /mob/living/simple_animal/proc/adjustBleedTicks(amount)
 	if(!can_bleed)
@@ -320,7 +358,10 @@
 		if(turn_sound && dir != old_dir)
 			playsound(src, turn_sound, 50, 1)
 		else if(movement_sound && old_turf != get_turf(src)) // Playing both sounds at the same time generally sounds bad.
-			playsound(src, movement_sound, 50, 1)
+			PlayMovementSound()
+
+/mob/living/simple_animal/proc/PlayMovementSound()
+	playsound(src, movement_sound, 50, 1)
 
 /mob/living/simple_animal/movement_delay()
 	. = movement_cooldown
@@ -341,7 +382,7 @@
 /mob/living/simple_animal/proc/pry_door(mob/user, delay, obj/machinery/door/pesky_door)
 	visible_message(SPAN_WARNING("\The [user] begins [pry_desc] at \the [pesky_door]!"))
 	set_AI_busy(TRUE)
-	if(do_after(user, delay, pesky_door))
+	if(do_after(user, delay, pesky_door, bonus_percentage = 25))
 		pesky_door.open(1)
 		ai_holder.prying = FALSE
 		set_AI_busy(FALSE)

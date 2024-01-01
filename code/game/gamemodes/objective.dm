@@ -151,12 +151,12 @@ var/global/list/all_objectives = list()
 // Hijack //
 
 /datum/objective/hijack
-	explanation_text = "Hijack a shuttle."
+	explanation_text = "Hijack the train."
 
 // Shuttle Escape //
 
 /datum/objective/escape
-	explanation_text = "Escape on the shuttle or an escape pod alive and free."
+	explanation_text = "Escape on the train or another way alive and free."
 
 // Survive //
 
@@ -220,9 +220,9 @@ var/global/list/all_objectives = list()
 	var/global/possible_items[] = list(
 		"a functional AI" = /obj/item/aicard,
 		"the [station_name()] blueprints" = /obj/item/blueprints,
-		"a sample of slime extract" = /obj/item/slime_extract,
 		"the hypospray" = /obj/item/reagent_containers/hypospray,
 		"the captain's pinpointer" = /obj/item/pinpointer,
+		"an RCD" = /obj/item/rcd,
 		"SCP-500" = /obj/item/reagent_containers/pill/scp500,
 		"SCP-2398" = /obj/item/weapon/twohanded/scp_2398,
 		"SCP-1102-RU" = /obj/item/weapon/scp1102ru,
@@ -231,6 +231,7 @@ var/global/list/all_objectives = list()
 	)
 
 	var/global/possible_items_special[] = list(
+		/*"nuclear authentication disk" = /obj/item/disk/nuclear,*///Broken with the change to nuke disk making it respawn on z level change.
 		"a hyper-capacity cell" = /obj/item/cell/hyper,
 		"10 diamonds" = /obj/item/stack/material/diamond,
 		"50 gold bars" = /obj/item/stack/material/gold,
@@ -423,10 +424,10 @@ var/global/list/all_objectives = list()
 	explanation_text = "Our knowledge must live on. Make sure at least [target_amount] acolytes escape to spread their work."
 
 /datum/objective/cult/eldergod
-	explanation_text = "Summon Nar-Sie via the use of the appropriate rune (Hell join self). It will only work if nine cultists stand on and around it. The convert rune is join blood self."
+	explanation_text = "Summon the Scarlet King via the use of the appropriate rune (Hell join self). It will only work if nine cultists stand on and around it. The convert rune is join blood self."
 
 /datum/objective/cult/sacrifice
-	explanation_text = "Conduct a ritual sacrifice for the glory of Nar-Sie."
+	explanation_text = "Conduct a ritual sacrifice for the glory of the Scarlet King."
 
 /datum/objective/cult/sacrifice/find_target()
 	var/list/possible_targets = list()

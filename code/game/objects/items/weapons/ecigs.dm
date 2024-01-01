@@ -20,6 +20,7 @@
 	var/ecig_colors = list(null, COLOR_DARK_GRAY, COLOR_RED_GRAY, COLOR_BLUE_GRAY, COLOR_GREEN_GRAY, COLOR_PURPLE_GRAY)
 	var/idle = 0
 	var/idle_treshold = 30
+	hidden_from_codex = FALSE
 
 /obj/item/clothing/mask/smokable/ecig/New()
 	..()
@@ -157,7 +158,7 @@
 			update_icon()
 			to_chat(user, "<span class='notice'>You insert \the [I] into \the [src].</span> ")
 
-	if(istype(I, /obj/item/screwdriver))
+	if(isScrewdriver(I))
 		if(cigcell) //if contains powercell
 			cigcell.update_icon()
 			cigcell.dropInto(loc)

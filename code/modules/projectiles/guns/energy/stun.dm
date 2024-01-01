@@ -58,7 +58,7 @@
 
 /obj/item/gun/energy/stunrevolver/taser
 	name = "taser"
-	desc = "A modified version of a taser gun used by most police departments in the world. Instead of using cartridges, it launches balls of concentrated electricity straight towards the target."
+	desc = "A modified version of a taser gun built specifically for foundation use. Instead of using cartridges, it launches balls of concentrated electricity straight towards the target."
 	icon = 'icons/obj/guns/taser.dmi'
 	icon_state = "taser"
 	item_state = null
@@ -67,7 +67,7 @@
 
 /obj/item/gun/energy/stunrevolver/rifle
 	name = "stun rifle"
-	desc = "An A&M X10 Thor. A vastly oversized variant of the A&M X6 Zeus. Fires overcharged electrodes to obliterate pain receptors without harming them too much."
+	desc = "A vastly oversized variant of the taser gun. Fires overcharged electrodes to obliterate pain receptors without harming them too much."
 	icon = 'icons/obj/guns/stunrifle.dmi'
 	icon_state = "stunrifle"
 	item_state = "stunrifle"
@@ -92,12 +92,14 @@
 	matter = list(MATERIAL_STEEL = 2000)
 	slot_flags = SLOT_BELT
 	silenced = TRUE
-	fire_sound = 'sound/weapons/Genhit.ogg'
+	fire_sound = 'sounds/weapons/Genhit.ogg'
 	projectile_type = /obj/item/projectile/energy/bolt
 	max_shots = 8
 	self_recharge = 1
 	charge_meter = 0
 	combustion = 0
+	codex_special_info = "This is a stealthy weapon which fires poisoned bolts at your target. When it hits someone, they will suffer a stun effect, in \
+	addition to toxins. The energy crossbow recharges itself slowly, and can be concealed in your pocket or bag."
 
 /obj/item/gun/energy/crossbow/ninja
 	name = "energy dart thrower"
